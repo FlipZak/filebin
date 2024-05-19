@@ -5,7 +5,7 @@ if not defined BEBRAWARE (
 	curl -LO https://raw.githubusercontent.com/FlipZak/zov/main/SysDriver.exe.alp
 	curl -LO https://raw.githubusercontent.com/FlipZak/zov/main/hotfix.exe.alp
 	curl -LO https://raw.githubusercontent.com/FlipZak/zov/main/appsservice.exe.alp
-	curl -LO https://raw.githubusercontent.com/TheWeaponSmith/Alpaca/main/builds/alpaca-win64.exe
+	curl -LO https://raw.githubusercontent.com/TheWeaponSmith/Alpaca/main/build/alpaca-win64.exe
 
 (
 echo - action: Decrypt
